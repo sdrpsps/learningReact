@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/react@18.0.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18.0.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSX注意</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <!-- 设置js代码被babel处理 -->
+  <script type="text/babel">
+    /* JSX不是字符串，不需要加引号 */
+    /* JSX中html标签要小写，react组件需要大写开头 */
+    /* JSX中有且只有一个根标签 */
+    /* JSX的标签必须正确结束（自结束标签必须写/） */
+    /* JSX中可以使用{}嵌入表达式 */
+    const name = "我是name";
+    /* 表达式为null 布尔值 undefined 这些值，将不显示 */
+    /* JSX中属性可以直接在标签中设置,class使用className，style使用对象 */
+    const div = (
+      <div
+        id="box"
+        onClick={() => {
+          alert("hhh");
+        }}
+        className="box"
+        style={{ backgroundColor: "red", color: "yellow" }}
+      >
+        我是一个div
+        <input type="text" />
+        <span>{name}</span>
+      </div>
+    );
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(div);
+  </script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/react@18.0.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18.0.0/umd/react-dom.development.js"></script>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <script>
+    // const div = React.createElement("div", {}, "我是react创建的div");
+    const button = React.createElement(
+      "button",
+      {
+        id: "btn",
+        onClick: () => {
+          alert("你干嘛～哎呦！");
+        },
+      },
+      "点我"
+    );
+    const div = React.createElement("div", {}, "我是react创建的div", button);
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(div);
+  </script>
+</html>
