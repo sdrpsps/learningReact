@@ -1,4 +1,4 @@
-import "./App.scss";
+import "./assets/css/App.scss";
 import LogsItem from "./components/LogsItem/LogsItem";
 
 function App() {

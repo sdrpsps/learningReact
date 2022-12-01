@@ -1,0 +1,13 @@
+.App .item{
+  width: 400px;
+  height: 400px;
+  margin: 50px auto;
+  background-color: #bfa;
+  text-align: center;
+}
+
+.App .item button {
+  width: 100px;
+  font-size: 30px;
+  margin: 0 20px;
+}
