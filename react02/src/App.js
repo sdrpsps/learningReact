@@ -1,5 +1,6 @@
 import "./assets/css/App.css";
 import { useRef, useState } from "react";
+import Rcc from './components/rcc';
 
 function App() {
   //#region useState
@@ -39,6 +40,9 @@ function App() {
         <h1>useRef</h1>
         <h2 ref={h2Ref}>1</h2>
         <button onClick={clickHandler}>1</button>
+      </div>
+      <div className="item">
+        <Rcc name='猪八戒' age={18} sex='男'></Rcc>
       </div>
     </div>
   );
