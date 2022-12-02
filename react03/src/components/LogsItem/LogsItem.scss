@@ -45,3 +45,11 @@
 .logs-item-time {
   color: #d62828;
 }
+
+.delete{
+  cursor: pointer;
+  transition: .7s;
+}
+.delete:hover{
+  transform: rotate(1turn);
+}

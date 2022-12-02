@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import Card from "../Card/Card";
 
-const LogsForm = () => {
+const LogsForm = (props) => {
   const [formData, setFormData] = useState({
-    dateV: "",
-    descV: "",
-    timeV: "",
+    date: "",
+    desc: "",
+    time: "",
   });
   const dateChangeHandler = (e) => {
-    setFormData({ ...formData, dateV: e.target.value });
+    setFormData({ ...formData, date: e.target.value });
   };
   const descChangeHandler = (e) => {
-    setFormData({ ...formData, descV: e.target.value });
+    setFormData({ ...formData, desc: e.target.value });
   };
   const timeChangeHandler = (e) => {
-    setFormData({ ...formData, timeV: +e.target.value });
+    setFormData({ ...formData, time: +e.target.value });
   };
   const formSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     setFormData({
-      dateV: "",
-      descV: "",
-      timeV: "",
+      date: "",
+      desc: "",
+      time: "",
     });
+    props.onSaveLog(formData)
   };
   return (
     <div>
@@ -33,21 +33,21 @@ const LogsForm = () => {
           <input
             id="date"
             type="date"
-            value={formData.dateV}
+            value={formData.date}
             onChange={dateChangeHandler}
           />
           <label htmlFor="desc">内容:</label>
           <input
             id="desc"
             type="text"
-            value={formData.descV}
+            value={formData.desc}
             onChange={descChangeHandler}
           />
           <label htmlFor="time">时长:</label>
           <input
             id="time"
             type="number"
-            value={formData.timeV}
+            value={formData.time}
             onChange={timeChangeHandler}
           />
           <button>添加</button>
