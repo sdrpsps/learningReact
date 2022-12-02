@@ -1,0 +1,25 @@
+.Counter {
+  display: flex;
+  align-items: center;
+  :global {
+    .sub,
+    .add {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      background-color: #fcbf49;
+      border-radius: 50%;
+      width: 36rem;
+      height: 36rem;
+    }
+    .sub {
+      background-color: #fff;
+      border: 1px solid #000;
+    }
+    .count {
+      font-size: 16px;
+      margin: 0 5px;
+    }
+  }
+}
