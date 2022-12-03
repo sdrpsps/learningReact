@@ -85,8 +85,14 @@ function App() {
     newCart.totalPrice -= meal.price;
     setCartData(newCart);
   };
+  // 清除购物车
   const clearMealHandler = () => {
-    setCartData({ items: [], totalAmount: 0, totalPrice: 0 });
+    const newCart = { ...cartData };
+    newCart.items.forEach((item) => delete item.amount);
+    newCart.items = [];
+    newCart.totalAmount = 0;
+    newCart.totalPrice = 0;
+    setCartData(newCart);
   };
   // 筛选关键词
   const filterHandler = (keyword) => {

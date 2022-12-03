@@ -7,7 +7,7 @@ import CartContext from '../../../store/CartContext';
 import Meal from '../../Meals/Meal/Meal';
 import Confirm from '../../UI/Confirm/Confirm';
 
-const CartDetail = () => {
+const CartDetail = (props) => {
   const ctx = useContext(CartContext);
   const [showConfim, setShowConfim] = useState(false);
   // 点击清空购物车
@@ -20,8 +20,8 @@ const CartDetail = () => {
     setShowConfim(false);
   };
   // 确认清空
-  const onConfirm = (e) => {
-    ctx.clearMealHandler()
+  const onConfirm = () => {
+    ctx.clearMealHandler();
   };
   return (
     <Backdrop>

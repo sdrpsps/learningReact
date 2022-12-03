@@ -1,0 +1,39 @@
+.Bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 30rem;
+  left: 0;
+  right: 0;
+  margin: 0 20rem;
+  height: 80rem;
+  background-color: #333;
+  border-radius: 20px;
+  z-index: 9999;
+  :global {
+    .price {
+        font-weight: bolder;
+        font-size: 36rem;
+        margin-left: 10rem;
+        .totalPrice {
+          color: #fff;
+        }
+        .totalPrice::before {
+          content: '¥';
+          font-size: 18rem;
+          margin-right: 5rem;
+        }
+      }
+      .pay {
+        .btn {
+          border: none;
+          background-color: #fcbf49;
+          width: 160rem;
+          height: 80rem;
+          border-radius: 20px;
+          font-size: 36rem;
+        }
+      }
+  }
+}

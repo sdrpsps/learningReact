@@ -3,17 +3,40 @@ import classes from './Cart.module.scss';
 import iconImg from '../../assets/images/bag.png';
 import CartContext from '../../store/CartContext';
 import CartDetail from './CartDetail/CartDetail';
+import CheckOut from '../CheckOut/CheckOut';
 
 const Cart = () => {
   const ctx = useContext(CartContext);
+  // 购物车详情显示状态
   const [showDetail, setShowDetail] = useState(false);
   const toggleDetailHandler = () => {
-    if (ctx.totalAmount === 0) return;
-    setShowDetail((prevState) => !prevState);
+    setShowDetail((prevState) => {
+      if (ctx.totalAmount === 0 && prevState === true) {
+        return;
+      } else if (ctx.totalAmount === 0) {
+        return;
+      } else {
+        return !prevState;
+      }
+    });
+  };
+  // 结算页显示状态
+  const [showCheckOut, setShowCheckOut] = useState(false);
+  const toggleCheckOutHandler = () => {
+    setShowCheckOut((prevState) => {
+      if (ctx.totalAmount === 0) {
+        return;
+      } else {
+        return !prevState;
+      }
+    });
   };
   return (
     <div className={classes.Cart} onClick={toggleDetailHandler}>
+      {/* 购物车详情 */}
+      {showCheckOut && <CheckOut onHide={toggleCheckOutHandler} />}
       {showDetail && <CartDetail />}
+      {/* 底部购物车条 */}
       <div className="icon">
         <img src={iconImg} />
         {ctx.totalAmount === 0 ? null : <span className="totalAmount">{ctx.totalAmount}</span>}
@@ -26,7 +49,9 @@ const Cart = () => {
         )}
       </div>
       <div className="pay">
-        <button className={`btn ${ctx.totalAmount === 0 ? 'disable' : null}`}>去结算</button>
+        <button onClick={toggleCheckOutHandler} className={`btn ${ctx.totalAmount === 0 ? 'disable' : null}`}>
+          去结算
+        </button>
       </div>
     </div>
   );

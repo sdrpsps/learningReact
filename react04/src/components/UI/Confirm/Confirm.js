@@ -4,7 +4,7 @@ import classes from './Confirm.module.scss';
 
 const Confirm = (props) => {
   return (
-    <Backdrop className={classes.Confirm}>
+    <Backdrop className={classes.Confirm} onClick={(e) => props.onCancel(e)}>
       <div className="comfirmWrap">
         <p className="title">{props.confirmText}</p>
         <div className="btn">

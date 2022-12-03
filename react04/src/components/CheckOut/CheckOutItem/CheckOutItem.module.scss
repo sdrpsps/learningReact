@@ -1,0 +1,33 @@
+.CheckOutItem {
+  display: flex;
+  :global {
+    .imgBox {
+      width: 150rem;
+    }
+    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      flex: auto;
+      margin-left: 20rem;
+      .title {
+        font-weight: bolder;
+        font-size: 28rem;
+      }
+      .desc {
+        display: flex;
+        justify-content: space-between;
+        .price{
+            font-size: 30rem;
+            font-weight: bolder;
+        }
+        .price::before{
+            content: '¥';
+            font-size: 20rem;
+            font-weight: normal;
+            margin-right: 10rem;
+        }
+      }
+    }
+  }
+}
