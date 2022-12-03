@@ -1,6 +1,6 @@
+import React, { useContext } from 'react';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext } from 'react';
 import CartContext from '../../../store/CartContext';
 import classes from './Counter.module.scss';
 

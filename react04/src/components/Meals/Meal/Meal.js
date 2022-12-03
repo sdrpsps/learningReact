@@ -10,7 +10,7 @@ const Meal = (props) => {
       </div>
       <div className="mealWrap">
         <h2 className="title">{props.meal.title}</h2>
-        <p className="desc">{props.meal.desc}</p>
+        {props.noDesc ? null : <p className="desc">{props.meal.desc}</p>}
         <div className="priceWrap">
           <span className="price">{props.meal.price}</span>
           <Counter meal={props.meal} />

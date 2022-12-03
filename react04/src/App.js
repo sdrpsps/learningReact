@@ -1,6 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import Meals from './components/Meals/Meals';
 import CartContext from './store/CartContext';
+import FilterMeals from './components/FilterMeals/FilterMeals';
+import Cart from './components/Cart/Cart';
 
 const MEALS_DATA = [
   {
@@ -56,7 +58,7 @@ const MEALS_DATA = [
 
 function App() {
   // 食物列表
-  const [mealsData] = useState(MEALS_DATA);
+  const [mealsData, setMealsData] = useState(MEALS_DATA);
   // 购物车列表
   const [cartData, setCartData] = useState({ items: [], totalAmount: 0, totalPrice: 0 });
   // 购物车添加商品
@@ -68,7 +70,7 @@ function App() {
     } else {
       meal.amount += 1;
     }
-    newCart.totalAmount += 1;
+    newCart.totalAmount++;
     newCart.totalPrice += meal.price;
     setCartData(newCart);
   };
@@ -79,17 +81,25 @@ function App() {
     if (meal.amount === 0) {
       newCart.items.splice(newCart.items.indexOf(meal), 1);
     }
-    newCart.totalAmount += 1;
-    newCart.totalPrice += meal.price;
+    newCart.totalAmount -= 1;
+    newCart.totalPrice -= meal.price;
     setCartData(newCart);
   };
-  // 避免 Eslint 报错
-  const CartContextProviderValue = useMemo(() => ({ ...cartData, addMealHandler, subMealHandler }), []);
+  const clearMealHandler = () => {
+    setCartData({ items: [], totalAmount: 0, totalPrice: 0 });
+  };
+  // 筛选关键词
+  const filterHandler = (keyword) => {
+    const newMealsData = MEALS_DATA.filter((item) => item.title.indexOf(keyword) !== -1);
+    setMealsData(newMealsData);
+  };
 
   return (
-    <CartContext.Provider value={CartContextProviderValue}>
+    <CartContext.Provider value={{ ...cartData, addMealHandler, subMealHandler, clearMealHandler }}>
       <div>
+        <FilterMeals onFilter={filterHandler} />
         <Meals mealsData={mealsData} />
+        <Cart />
       </div>
     </CartContext.Provider>
   );

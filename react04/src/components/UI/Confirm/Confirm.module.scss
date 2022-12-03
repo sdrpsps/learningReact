@@ -1,0 +1,41 @@
+.Confirm {
+  z-index: 9999;
+  :global {
+    .comfirmWrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 700rem;
+      height: 300rem;
+      border-radius: 20px;
+      margin: auto;
+      background-color: #fff;
+      .title {
+        font-weight: bolder;
+        font-size: 40rem;
+      }
+      .btn {
+        .btnCancel,
+        .btnConfirm {
+          border: 1px solid #ccc;
+          background-color: #fff;
+          width: 160rem;
+          height: 60rem;
+          border-radius: 80px;
+          font-size: 28rem;
+        }
+        .btnConfirm {
+          border: none;
+          background-color: #fcbf49;
+          margin-left: 50rem;
+        }
+      }
+    }
+  }
+}

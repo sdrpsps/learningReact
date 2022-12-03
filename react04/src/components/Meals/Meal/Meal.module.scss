@@ -11,12 +11,12 @@
       flex: auto;
       .title {
         font-weight: normal;
-        font-size: 18px;
+        font-size: 36rem;
         margin-bottom: 10rem;
       }
       .desc {
         color: #bbb;
-        font-size: 12px;
+        font-size: 24rem;
         padding-right: 40rem;
       }
       .priceWrap {
@@ -26,12 +26,12 @@
         margin-top: 40rem;
         padding-right: 40rem;
         .price {
-          font-size: 18px;
+          font-size: 36rem;
           font-weight: bloder;
         }
         .price::before {
           content: '¥';
-          font-size: 12px;
+          font-size: 24rem;
         }
       }
     }
