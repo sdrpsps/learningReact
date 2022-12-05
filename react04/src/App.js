@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useReducer } from 'react';
 import Meals from './components/Meals/Meals';
 import CartContext from './store/CartContext';
 import FilterMeals from './components/FilterMeals/FilterMeals';
 import Cart from './components/Cart/Cart';
 
+// 商品假数据
 const MEALS_DATA = [
   {
     id: '1',
@@ -55,45 +56,50 @@ const MEALS_DATA = [
     img: '/images/meals/7.png',
   },
 ];
+// 定义 cartReducer
+const cartReducer = (state, action) => {
+  // 浅复制
+  const newCart = { ...state };
+  // CURD
+  switch (action.type) {
+    // 增加
+    case 'ADD':
+      if (newCart.items.indexOf(action.meal) === -1) {
+        action.meal.amount = 1;
+        newCart.items.push(action.meal);
+      } else {
+        action.meal.amount += 1;
+      }
+      newCart.totalAmount += 1;
+      newCart.totalPrice += action.meal.price;
+      return newCart;
+    // 减少
+    case 'SUB':
+      action.meal.amount -= 1;
+      if (action.meal.amount === 0) {
+        newCart.items.splice(newCart.items.indexOf(action.meal), 1);
+      }
+      newCart.totalAmount -= 1;
+      newCart.totalPrice -= action.meal.price;
+      return newCart;
+    // 清除
+    case 'CLEAR':
+      newCart.items.forEach((item) => delete item.amount);
+      newCart.items = [];
+      newCart.totalAmount = 0;
+      newCart.totalPrice = 0;
+      return newCart;
+    // 默认情况
+    default:
+      return state;
+  }
+};
 
 function App() {
   // 食物列表
   const [mealsData, setMealsData] = useState(MEALS_DATA);
-  // 购物车列表
-  const [cartData, setCartData] = useState({ items: [], totalAmount: 0, totalPrice: 0 });
-  // 购物车添加商品
-  const addMealHandler = (meal) => {
-    const newCart = { ...cartData };
-    if (newCart.items.indexOf(meal) === -1) {
-      meal.amount = 1;
-      newCart.items.push(meal);
-    } else {
-      meal.amount += 1;
-    }
-    newCart.totalAmount++;
-    newCart.totalPrice += meal.price;
-    setCartData(newCart);
-  };
-  // 购物车删除商品
-  const subMealHandler = (meal) => {
-    const newCart = { ...cartData };
-    meal.amount -= 1;
-    if (meal.amount === 0) {
-      newCart.items.splice(newCart.items.indexOf(meal), 1);
-    }
-    newCart.totalAmount -= 1;
-    newCart.totalPrice -= meal.price;
-    setCartData(newCart);
-  };
-  // 清除购物车
-  const clearMealHandler = () => {
-    const newCart = { ...cartData };
-    newCart.items.forEach((item) => delete item.amount);
-    newCart.items = [];
-    newCart.totalAmount = 0;
-    newCart.totalPrice = 0;
-    setCartData(newCart);
-  };
+  // 定义 cartReducer，精简代码易于维护
+  const [cartData, cartDispatch] = useReducer(cartReducer, { items: [], totalAmount: 0, totalPrice: 0 });
   // 筛选关键词
   const filterHandler = (keyword) => {
     const newMealsData = MEALS_DATA.filter((item) => item.title.indexOf(keyword) !== -1);
@@ -101,7 +107,7 @@ function App() {
   };
 
   return (
-    <CartContext.Provider value={{ ...cartData, addMealHandler, subMealHandler, clearMealHandler }}>
+    <CartContext.Provider value={{ ...cartData, cartDispatch }}>
       <div>
         <FilterMeals onFilter={filterHandler} />
         <Meals mealsData={mealsData} />

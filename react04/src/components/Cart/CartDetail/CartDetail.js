@@ -21,7 +21,7 @@ const CartDetail = (props) => {
   };
   // 确认清空
   const onConfirm = () => {
-    ctx.clearMealHandler();
+    ctx.cartDispatch({ type: 'CLEAR' });
   };
   return (
     <Backdrop>

@@ -10,11 +10,11 @@ const Counter = (props) => {
   const ctx = useContext(CartContext);
   // 增加数量
   const addBtnHandler = () => {
-    ctx.addMealHandler(props.meal);
+    ctx.cartDispatch({ type: 'ADD', meal: props.meal });
   };
   // 减少数量
   const subBtnHandler = () => {
-    ctx.subMealHandler(props.meal);
+    ctx.cartDispatch({ type: 'SUB', meal: props.meal });
   };
   return (
     <div className={classes.Counter}>
