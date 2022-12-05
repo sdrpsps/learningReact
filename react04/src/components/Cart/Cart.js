@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import classes from './Cart.module.scss';
 import iconImg from '../../assets/images/bag.png';
 import CartContext from '../../store/CartContext';
@@ -31,6 +31,14 @@ const Cart = () => {
       }
     });
   };
+  // 选取数量为0时，关闭购物车列表
+  // 第二个参数是一个数组，制定effect的依赖项，通常将effect中使用的所有局部变量设置为依赖项
+  useEffect(() => {
+    if (ctx.totalAmount === 0) {
+      setShowDetail(false);
+      setShowCheckOut(false);
+    }
+  }, [ctx]);
   return (
     <div className={classes.Cart} onClick={toggleDetailHandler}>
       {/* 购物车详情 */}
