@@ -1,3 +1,4 @@
+.DS_Store
 */node_modules
 strapi_server/.tmp
 strapi_server/.cache
