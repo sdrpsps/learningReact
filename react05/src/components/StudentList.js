@@ -1,5 +1,6 @@
 import React from 'react';
 import Student from "./Student";
+import StudentForm from './StudentForm';
 import './StudentList.css';
 
 const StudentList = (props) => {
@@ -22,7 +23,9 @@ const StudentList = (props) => {
 
                 </tbody>
 
-
+                <tfoot>
+                    <StudentForm/>
+                </tfoot>
             </table>
     );
 };
