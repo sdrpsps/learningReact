@@ -1,6 +1,7 @@
-import React, { useCallback, useContext, useState } from 'react';
-import './StudentForm.css';
+import React, { useContext, useState } from 'react';
+import useFetch from '../hooks/useFetch';
 import StuContext from '../store/StuContext';
+import './StudentForm.css';
 
 const StudentForm = (props) => {
   const [inputData, setInputData] = useState({
@@ -9,9 +10,8 @@ const StudentForm = (props) => {
     age: props.stu ? props.stu.attributes.age : '',
     address: props.stu ? props.stu.attributes.address : '',
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const ctx = useContext(StuContext);
+  // 输入框双向绑定
   const nameChangeHandler = (e) => {
     setInputData((prevState) => ({ ...prevState, name: e.target.value }));
   };
@@ -24,50 +24,20 @@ const StudentForm = (props) => {
   const addressChangeHandler = (e) => {
     setInputData((prevState) => ({ ...prevState, address: e.target.value }));
   };
-  const addHandler = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const res = await fetch('http://localhost:1337/api/students', {
-        method: 'post',
-        body: JSON.stringify({ data: inputData }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!res.ok) {
-        throw new Error('添加失败');
-      }
-      ctx.getStuData();
-    } catch (error) {
-      setError(error);
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }, [inputData]);
-  const editHandler = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const res = await fetch(`http://localhost:1337/api/students/${props.stu.id}`, {
-        method: 'put',
-        body: JSON.stringify({ data: inputData }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!res.ok) {
-        throw new Error('添加失败');
-      }
-      ctx.getStuData();
-    } catch (error) {
-      setError(error);
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  });
+  const {
+    loading,
+    error,
+    fetchData: updateStudent,
+  } = useFetch(
+    { url: props.stu ? `/students/${props.stu.id}` : '/students', method: props.stu ? 'put' : 'post' },
+    ctx.getStuData,
+  );
+  const addHandler = () => {
+    updateStudent(inputData);
+  };
+  const editHandler = () => {
+    updateStudent(inputData);
+  };
   return (
     <>
       <tr className="StudentForm">

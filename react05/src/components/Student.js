@@ -1,30 +1,17 @@
-import React, { useCallback, useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import useFetch from '../hooks/useFetch';
 import StuContext from '../store/StuContext';
 import StudentForm from './StudentForm';
 
 const Student = (props) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [isEdit, setIsEdit] = useState(false);
   const ctx = useContext(StuContext);
+  const {
+    loading,
+    error,
+    fetchData: deleteHandler,
+  } = useFetch({ url: `/students/${props.stu.id}`, method: 'delete' }, ctx.getStuData);
 
-  const deleteHandler = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const res = await fetch(`http://localhost:1337/api/students/${props.stu.id}`, { method: 'delete' });
-      if (!res.ok) {
-        throw new Error('删除失败');
-      }
-      ctx.getStuData();
-      // const data = await res.json()
-    } catch (error) {
-      setError(error);
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
   const onCancelHandler = () => {
     setIsEdit(false);
   };
