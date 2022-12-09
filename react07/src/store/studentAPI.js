@@ -5,7 +5,7 @@ const studentAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://strapi.hchow.icu/api',
   }),
-  // 用来指定 API 的标签类型
+  // 用来指定 API 的标签类型，实现自动化刷新
   tagTypes: ['student'],
   endpoints: (builder) => ({
     getStudents: builder.query({
@@ -26,6 +26,7 @@ const studentAPI = createApi({
         return { url: `/students/${id}`, method: 'delete' };
       },
       transformResponse: (baseQueryReturnValue) => baseQueryReturnValue.data,
+      // 使标签失效
       invalidatesTags: ['student'],
     }),
     addStudents: builder.mutation({
