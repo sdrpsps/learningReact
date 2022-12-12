@@ -5,8 +5,11 @@ import ProfilePage from './pages/ProfilePage';
 import AuthPage from './pages/AuthPage';
 import Layout from './components/Layout/Layout';
 import NeedAuth from './components/NeedAuth/NeedAuth';
+import useAutoLogout from './hooks/useAutoLogout';
 
 function App() {
+  // 自定义自动登出钩子
+  useAutoLogout();
   return (
     <div className="App">
       <Layout>
