@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import AuthPage from './pages/AuthPage';
+import StudentPage from './pages/StudentPage';
 import Layout from './components/Layout/Layout';
 import NeedAuth from './components/NeedAuth/NeedAuth';
 import useAutoLogout from './hooks/useAutoLogout';
@@ -25,6 +26,14 @@ function App() {
             }
           />
           <Route path="/auth" element={<AuthPage />} />
+          <Route
+            path="/student"
+            element={
+              <NeedAuth>
+                <StudentPage />
+              </NeedAuth>
+            }
+          />
         </Routes>
       </Layout>
     </div>
