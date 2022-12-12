@@ -18,16 +18,16 @@ const MainMenu = () => {
           </li>
         )}
         {auth.isLogin && (
-          <li>
-            <Link to="/profile">{auth.user.username}</Link>
-          </li>
-        )}
-        {auth.isLogin && (
-          <li>
-            <Link to="/" onClick={() => dispatch(logout())}>
-              登出
-            </Link>
-          </li>
+          <>
+            <li>
+              <Link to="/profile">{auth.user.username}</Link>
+            </li>
+            <li>
+              <Link to="/" onClick={() => dispatch(logout())}>
+                登出
+              </Link>
+            </li>
+          </>
         )}
       </ul>
     </header>

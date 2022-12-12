@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useLoginMutation, useRegisterMutation } from '../../store/api/authAPI';
 import { login } from '../../store/reducer/authSlice';
 
@@ -26,6 +26,8 @@ const AuthForm = () => {
   const [loginFn, { error: loginError }] = useLoginMutation();
   // 引入 dispatch
   const dispatch = useDispatch();
+  // 获取跳转 state
+  const location = useLocation();
   // 引入路由跳转
   const navigate = useNavigate();
   // 提交
@@ -38,7 +40,8 @@ const AuthForm = () => {
         const res = await loginFn({ identifier: data.username, password: data.password });
         if (res.error) throw new Error(res.error.data.error.message);
         dispatch(login({ token: res.data.jwt, user: res.data.user }));
-        navigate('/', { replace: true });
+        // 动态重定向到上次访问的页面，如果没有就直接重定向到主页
+        navigate(location.state?.preURL || '/', { replace: true });
       } else {
         const res = await registerFn(data);
         if (res.error) throw new Error(res.error.data.error.message);
